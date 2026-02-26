@@ -98,9 +98,11 @@ export default function Header() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:block">
-          <Button size="sm" href="/donate" as="a">
-            Donate
-          </Button>
+          <Link href="/donate">
+            <Button size="sm">
+              Donate
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -134,9 +136,11 @@ export default function Header() {
               </Link>
             ))}
             <div className="pt-4">
-              <Button fullWidth href="/donate" as="a">
-                Donate Now
-              </Button>
+              <Link href="/donate">
+                <Button fullWidth>
+                  Donate Now
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>
