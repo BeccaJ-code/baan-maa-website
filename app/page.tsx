@@ -92,12 +92,7 @@ export default async function HomePage() {
                 We are the ONLY Outreach Dog Rescue Project in this region
               </p>
 
-              <p className="text-white/80 mb-8">
-                59/3 Moo 9 Tambon Thalaeng<br />
-                Tha Yang, Phetchaburi 76130, Thailand
-              </p>
-
-              <Link href="/sponsorship">
+<Link href="/sponsorship">
                 <Button size="lg">
                   Sponsor a dog today
                 </Button>
