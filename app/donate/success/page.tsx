@@ -27,7 +27,7 @@ export default function DonationSuccessPage() {
           </svg>
         </div>
 
-        <h1 className="font-display text-3xl md:text-4xl font-bold text-blue-800 mb-4">
+        <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 mb-4">
           Thank You!
         </h1>
 

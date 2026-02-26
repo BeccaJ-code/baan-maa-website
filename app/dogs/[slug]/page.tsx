@@ -71,7 +71,7 @@ export default async function DogProfilePage({ params }: PageProps) {
             <div>
               {/* Header */}
               <div className="flex items-start justify-between gap-4 mb-4">
-                <h1 className="font-display text-3xl md:text-4xl font-bold text-blue-800">
+                <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800">
                   {dog.name}
                 </h1>
                 <StatusBadge status={dog.status as DogStatusType} />

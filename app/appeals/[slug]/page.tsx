@@ -68,7 +68,7 @@ export default async function AppealPage({ params }: Props) {
               ← Back to Appeals
             </Link>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             {appeal.title}
           </h1>
           {appeal.dogName && (

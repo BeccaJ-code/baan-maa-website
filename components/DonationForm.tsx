@@ -196,19 +196,19 @@ export default function DonationForm({
       )}
 
       {/* Amount Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mb-6">
         {amounts.map(({ amount, label }) => (
           <button
             key={amount}
             onClick={() => handlePresetClick(amount)}
             className={cn(
-              'p-3 rounded-lg border-2 text-left transition-all',
+              'p-2.5 sm:p-3 rounded-lg border-2 text-left transition-all',
               selectedAmount === amount
                 ? 'border-teal-600 bg-teal-50'
                 : 'border-sand-200 hover:border-blue-300'
             )}
           >
-            <div className="font-bold text-lg">
+            <div className="font-bold text-base sm:text-lg">
               {formatAmountShort(amount, currency)}
             </div>
             {label && (

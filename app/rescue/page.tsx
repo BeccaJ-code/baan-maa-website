@@ -14,7 +14,7 @@ export default function RescuePage() {
     <>
       <Section background="blue" padding="lg">
         <Container size="md" className="text-center">
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             About Our Rescue
           </h1>
           <p className="text-lg text-white/90">
@@ -26,7 +26,7 @@ export default function RescuePage() {
 
       <Section background="white" padding="lg">
         <Container size="lg">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
               <h2 className="font-display text-3xl font-bold text-blue-800 mb-6">
                 Our Story
@@ -57,7 +57,7 @@ export default function RescuePage() {
 
       <Section background="sand" padding="lg">
         <Container size="lg">
-          <h2 className="font-display text-3xl font-bold text-blue-800 text-center mb-12">
+          <h2 className="font-display text-3xl font-bold text-blue-800 text-center mb-8 md:mb-12">
             What We Do
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -102,7 +102,7 @@ export default function RescuePage() {
 
       <Section background="white" padding="lg">
         <Container size="lg">
-          <h2 className="font-display text-3xl font-bold text-blue-800 text-center mb-12">
+          <h2 className="font-display text-3xl font-bold text-blue-800 text-center mb-8 md:mb-12">
             Our Impact
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">

@@ -24,7 +24,7 @@ export default async function StoriesPage() {
       {/* Hero Section */}
       <Section background="blue" padding="lg">
         <Container size="md" className="text-center">
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Success Stories
           </h1>
           <p className="text-lg text-white/90 max-w-2xl mx-auto">

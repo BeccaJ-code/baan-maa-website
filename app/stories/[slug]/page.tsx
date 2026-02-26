@@ -63,7 +63,7 @@ export default async function StoryPage({ params }: PageProps) {
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Back to Stories
           </Link>
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-blue-900">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-blue-900">
             {story.title}
           </h1>
           {story.adoptedTo && (

@@ -33,7 +33,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center">
+      <section className="relative min-h-[70vh] md:min-h-[90vh] flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -47,11 +47,11 @@ export default async function HomePage() {
         </div>
 
         {/* Content */}
-        <Container size="xl" className="relative z-10 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <Container size="xl" className="relative z-10 py-10 md:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left: Text Content */}
             <div className="animate-fade-up">
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 md:mb-6">
                 Every Dog<br />
                 Deserves Love.<br />
                 <span className="text-teal-300">Not All Get It.</span>
@@ -84,7 +84,7 @@ export default async function HomePage() {
       {/* About Section */}
       <Section background="blue" padding="lg">
         <Container size="md" className="text-center">
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 md:mb-8">
             About Baan Maa Dog Rescue
           </h2>
           <div className="space-y-6 text-lg text-white/90 leading-relaxed">
@@ -108,7 +108,7 @@ export default async function HomePage() {
       {/* What We Do Section */}
       <Section background="blue" padding="md">
         <Container size="lg">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-white text-center mb-12">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center mb-8 md:mb-12">
             What We Do
           </h2>
 
@@ -139,7 +139,7 @@ export default async function HomePage() {
       {stories.length > 0 && (
         <Section background="sand" padding="lg">
           <Container size="full">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-blue-700 mb-8 px-4">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-blue-700 mb-6 md:mb-8 px-4">
               Who You&apos;ve Helped So Far...
             </h2>
             <StoryCarousel stories={stories} />
@@ -148,7 +148,7 @@ export default async function HomePage() {
       )}
 
       {/* CTA Section */}
-      <section className="relative min-h-[50vh] flex items-center justify-center py-20 px-6">
+      <section className="relative min-h-[40vh] md:min-h-[50vh] flex items-center justify-center py-12 md:py-20 px-5">
         <Image
           src="/images/jake-recovery.webp"
           alt="Jake recovering at Baan Maa sanctuary"
@@ -158,7 +158,7 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-blue-900/60" />
 
         <div className="relative z-10 max-w-3xl text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
             We can&apos;t save every dog in Thailand, but for the ones we reach,
             your kindness changes everything
           </h2>
@@ -176,30 +176,30 @@ export default async function HomePage() {
       {/* Quick Stats */}
       <Section background="white" padding="md">
         <Container size="lg">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
             <div>
-              <div className="font-display text-4xl md:text-5xl font-bold text-teal-600 mb-2">
+              <div className="font-display text-3xl md:text-5xl font-bold text-teal-600 mb-1 md:mb-2">
                 500+
               </div>
-              <div className="text-sand-600">Dogs Rescued</div>
+              <div className="text-sand-600 text-sm md:text-base">Dogs Rescued</div>
             </div>
             <div>
-              <div className="font-display text-4xl md:text-5xl font-bold text-teal-600 mb-2">
+              <div className="font-display text-3xl md:text-5xl font-bold text-teal-600 mb-1 md:mb-2">
                 200+
               </div>
-              <div className="text-sand-600">Adoptions</div>
+              <div className="text-sand-600 text-sm md:text-base">Adoptions</div>
             </div>
             <div>
-              <div className="font-display text-4xl md:text-5xl font-bold text-teal-600 mb-2">
+              <div className="font-display text-3xl md:text-5xl font-bold text-teal-600 mb-1 md:mb-2">
                 50+
               </div>
-              <div className="text-sand-600">Dogs in Care</div>
+              <div className="text-sand-600 text-sm md:text-base">Dogs in Care</div>
             </div>
             <div>
-              <div className="font-display text-4xl md:text-5xl font-bold text-teal-600 mb-2">
+              <div className="font-display text-3xl md:text-5xl font-bold text-teal-600 mb-1 md:mb-2">
                 10+
               </div>
-              <div className="text-sand-600">Years of Rescue</div>
+              <div className="text-sand-600 text-sm md:text-base">Years of Rescue</div>
             </div>
           </div>
         </Container>
@@ -208,9 +208,9 @@ export default async function HomePage() {
       {/* Newsletter / Final CTA */}
       <Section background="blue-dark" padding="lg">
         <Container size="lg">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                 Ready to Make a Difference?
               </h2>
               <p className="text-lg text-white/80 mb-8">

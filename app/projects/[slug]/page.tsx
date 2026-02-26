@@ -71,7 +71,7 @@ export default async function ProjectPage({ params }: PageProps) {
               </span>
             )}
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-white mt-2">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2">
             {project.title}
           </h1>
         </Container>

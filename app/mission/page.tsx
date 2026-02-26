@@ -29,7 +29,7 @@ export default function MissionPage() {
         <Container size="xl" className="relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="py-16 lg:py-24 lg:pr-12">
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-blue-900 mb-6 leading-tight">
+              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-blue-900 mb-6 leading-tight">
                 Every Rescue Begins With One Call.
               </h1>
               <p className="text-lg md:text-xl text-sand-700 mb-4">
@@ -63,7 +63,7 @@ export default function MissionPage() {
       {/* What Rescue Means */}
       <Section background="white" padding="lg">
         <Container size="xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
               <Image
                 src="/images/mission/jok-dog-rescue.jpg"
@@ -73,7 +73,7 @@ export default function MissionPage() {
               />
             </div>
             <div>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-blue-900 mb-6">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-blue-900 mb-6">
                 What Rescue Means
               </h2>
               <div className="space-y-4 text-sand-700 text-lg leading-relaxed">
@@ -100,8 +100,8 @@ export default function MissionPage() {
       {/* How Rescue Happens */}
       <Section background="blue-light" padding="lg">
         <Container size="xl">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-blue-900 mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-blue-900 mb-4">
               How Rescue Happens
             </h2>
             <p className="text-lg text-sand-700 max-w-3xl mx-auto">
@@ -140,8 +140,8 @@ export default function MissionPage() {
       {/* The Reality */}
       <Section background="white" padding="lg">
         <Container size="xl">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-blue-900 mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-blue-900 mb-4">
               The Reality
             </h2>
             <p className="text-lg text-sand-700 max-w-3xl mx-auto">
@@ -175,8 +175,8 @@ export default function MissionPage() {
       {/* The Transformation */}
       <Section background="sand" padding="lg">
         <Container size="xl">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-blue-900 mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-blue-900 mb-4">
               The Transformation
             </h2>
             <p className="text-lg text-sand-700 max-w-3xl mx-auto">
@@ -216,7 +216,7 @@ export default function MissionPage() {
       {/* CTA Section */}
       <Section background="blue" padding="lg">
         <Container size="md" className="text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
             Be Part of Their Journey
           </h2>
           <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">

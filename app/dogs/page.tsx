@@ -80,7 +80,7 @@ export default async function DogsPage({ searchParams }: DogsPageProps) {
       {/* Hero */}
       <Section background="blue" padding="md">
         <Container size="lg" className="text-center">
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Our Dogs
           </h1>
           <p className="text-lg text-white/90 max-w-2xl mx-auto">

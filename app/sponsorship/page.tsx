@@ -29,7 +29,7 @@ export default async function SponsorshipPage() {
     <>
       <Section background="blue" padding="lg">
         <Container size="md" className="text-center">
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Sponsor a Dog
           </h1>
           <p className="text-lg text-white/90">
@@ -41,7 +41,7 @@ export default async function SponsorshipPage() {
 
       <Section background="sand" padding="lg">
         <Container size="lg">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             <div>
               <h2 className="font-display text-2xl font-bold text-blue-800 mb-6">
                 What Sponsorship Provides

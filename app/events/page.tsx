@@ -28,7 +28,7 @@ export default async function EventsPage() {
     <>
       <Section background="blue" padding="lg">
         <Container size="md" className="text-center">
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Events
           </h1>
           <p className="text-lg text-white/90">
