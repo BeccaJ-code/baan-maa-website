@@ -44,19 +44,19 @@ export default function DogCard({ dog, showStatus = true, className }: DogCardPr
         </div>
 
         {/* Content */}
-        <div className="p-4">
+        <div className="p-5">
           {/* Name and basic info */}
           <div className="flex items-start justify-between gap-2 mb-2">
-            <h3 className="font-semibold text-lg text-blue-800 group-hover:text-blue-700 transition-colors">
+            <h3 className="font-semibold text-xl text-blue-800 group-hover:text-blue-700 transition-colors">
               {name}
             </h3>
             {age && (
-              <span className="text-sm text-sand-600 shrink-0">{age}</span>
+              <span className="text-sand-600 shrink-0">{age}</span>
             )}
           </div>
 
           {/* Meta info */}
-          <div className="flex items-center gap-2 text-sm text-sand-600 mb-3">
+          <div className="flex items-center gap-2 text-sand-600 mb-3">
             {sex && <span>{sex === 'MALE' ? 'Male' : 'Female'}</span>}
             {sex && size && <span>·</span>}
             {size && <span>{size.charAt(0) + size.slice(1).toLowerCase()}</span>}
@@ -64,7 +64,7 @@ export default function DogCard({ dog, showStatus = true, className }: DogCardPr
 
           {/* Description */}
           {shortDescription && (
-            <p className="text-sm text-sand-700 line-clamp-2 mb-3">
+            <p className="text-sand-700 line-clamp-2 mb-3">
               {shortDescription}
             </p>
           )}

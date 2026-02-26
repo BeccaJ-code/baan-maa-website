@@ -105,7 +105,7 @@ export default function RescuePage() {
           <h2 className="font-display text-3xl font-bold text-blue-800 text-center mb-8 md:mb-12">
             Our Impact
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
             <Stat number="500+" label="Dogs Rescued" />
             <Stat number="200+" label="Successful Adoptions" />
             <Stat number="1,000+" label="Dogs Sterilised" />

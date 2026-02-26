@@ -110,7 +110,7 @@ export default function MissionPage() {
           </div>
 
           {/* Process Flow */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
             <ProcessStep icon={<PhoneIcon />} label="Call/Report" />
             <ProcessStep icon={<TruckIcon />} label="Pick Up" />
             <ProcessStep icon={<MedicalIcon />} label="Vet Care" />

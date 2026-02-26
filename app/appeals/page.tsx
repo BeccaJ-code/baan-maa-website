@@ -103,7 +103,7 @@ export default async function AppealsPage() {
                 <span className="text-2xl">💊</span>
               </div>
               <h3 className="font-semibold text-blue-900 mb-2">Medical Treatment</h3>
-              <p className="text-sand-600 text-sm">
+              <p className="text-sand-600">
                 Surgery, medication, and specialist care for injured and sick dogs.
               </p>
             </div>
@@ -112,7 +112,7 @@ export default async function AppealsPage() {
                 <span className="text-2xl">🏥</span>
               </div>
               <h3 className="font-semibold text-blue-900 mb-2">Emergency Rescue</h3>
-              <p className="text-sand-600 text-sm">
+              <p className="text-sand-600">
                 Transport, quarantine, and immediate care for dogs in crisis.
               </p>
             </div>
@@ -121,7 +121,7 @@ export default async function AppealsPage() {
                 <span className="text-2xl">❤️</span>
               </div>
               <h3 className="font-semibold text-blue-900 mb-2">Recovery & Return</h3>
-              <p className="text-sand-600 text-sm">
+              <p className="text-sand-600">
                 Rehabilitation so dogs can be returned to their owners, released back to their packs, or rehomed.
               </p>
             </div>
@@ -200,7 +200,7 @@ function AppealCard({ appeal, urgent = false }: { appeal: Appeal; urgent?: boole
         <h3 className="font-display font-bold text-blue-900 mb-2 group-hover:text-teal-600 transition-colors line-clamp-2">
           {appeal.title}
         </h3>
-        <p className="text-sand-600 text-sm mb-4 line-clamp-2">{appeal.summary}</p>
+        <p className="text-sand-600 mb-4 line-clamp-2">{appeal.summary}</p>
 
         <div className="space-y-2">
           <div className="w-full h-2 bg-sand-200 rounded-full overflow-hidden">

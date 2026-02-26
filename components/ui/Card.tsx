@@ -129,7 +129,7 @@ export function CardDescription({
   className,
 }: CardDescriptionProps) {
   return (
-    <p className={cn('text-sm text-sand-700 leading-relaxed', className)}>
+    <p className={cn('text-sand-700 leading-relaxed', className)}>
       {children}
     </p>
   );

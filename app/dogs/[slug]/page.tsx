@@ -106,7 +106,7 @@ export default async function DogProfilePage({ params }: PageProps) {
               {/* Compatibility */}
               <div className="bg-white rounded-xl p-6 mb-6">
                 <h3 className="font-semibold text-blue-800 mb-4">Compatibility</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <CompatibilityItem label="Children" value={dog.goodWithKids} />
                   <CompatibilityItem label="Dogs" value={dog.goodWithDogs} />
                   <CompatibilityItem label="Cats" value={dog.goodWithCats} />
