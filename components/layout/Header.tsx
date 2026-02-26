@@ -118,17 +118,17 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-18 bg-white z-40">
+        <div className="lg:hidden fixed inset-0 top-[4.5rem] bg-white z-40 overflow-y-auto">
           <nav className="flex flex-col p-6 gap-4">
             {NAV_LINKS.map(link => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'text-lg font-medium py-2 border-b border-sand-100',
+                  'text-lg font-medium py-2 border-b border-sand-200',
                   link.highlight
-                    ? pathname === link.href ? 'text-red-700' : 'text-red-600 hover:text-red-700'
-                    : pathname === link.href ? 'text-blue-700' : 'text-sand-700 hover:text-blue-700'
+                    ? pathname === link.href ? 'text-red-700 font-bold' : 'text-red-600 hover:text-red-700'
+                    : pathname === link.href ? 'text-blue-800 font-bold' : 'text-sand-900 hover:text-blue-700'
                 )}
               >
                 {link.highlight && <span className="mr-1">❤️</span>}
