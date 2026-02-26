@@ -16,7 +16,17 @@ export const metadata: Metadata = {
 // Donate Page
 // =============================================================================
 
-export default async function DonatePage() {
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function DonatePage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const appealId = typeof params.appealId === 'string' ? params.appealId : undefined;
+  const appealName = typeof params.appealName === 'string' ? params.appealName : undefined;
+  const projectId = typeof params.projectId === 'string' ? params.projectId : undefined;
+  const projectName = typeof params.projectName === 'string' ? params.projectName : undefined;
+
   // Fetch active priority projects
   const projects = await prisma.project.findMany({
     where: { isActive: true },
@@ -46,9 +56,12 @@ export default async function DonatePage() {
             {/* Form */}
             <div>
               <DonationForm
+                appealId={appealId}
+                projectId={projectId}
+                projectName={appealName || projectName}
                 config={{
-                  title: 'Save a Life Today',
-                  description: 'Choose your donation amount and frequency.',
+                  title: appealName ? `Donate to: ${appealName}` : 'Save a Life Today',
+                  description: appealName ? 'Your donation goes directly to this appeal.' : 'Choose your donation amount and frequency.',
                   oneTimeAvailable: true,
                   monthlyAvailable: true,
                   defaultType: 'once',

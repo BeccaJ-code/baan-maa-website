@@ -1,4 +1,5 @@
 import Stripe from 'stripe';
+import prisma from '@/lib/prisma';
 import type { Currency, CheckoutRequest } from '@/types';
 
 // =============================================================================
@@ -73,6 +74,7 @@ export async function createCheckoutSession(request: CheckoutRequest): Promise<s
     cancel_url: cancelUrl,
     metadata: {
       projectId: projectId || '',
+      appealId: request.appealId || '',
       projectName: projectName || 'General Fund',
       donationType,
     },
@@ -139,24 +141,47 @@ export function constructWebhookEvent(
 export async function handleCheckoutCompleted(
   session: Stripe.Checkout.Session
 ): Promise<void> {
-  // Extract metadata
-  const { projectId, projectName, donationType } = session.metadata || {};
+  const { projectId, appealId, projectName, donationType } = session.metadata || {};
 
-  // Log the donation (in production, you might update database, send confirmation email, etc.)
+  // Convert from Stripe smallest unit (pence/cents) to pounds/dollars
+  const amountInCurrency = (session.amount_total || 0) / 100;
+
   console.log('Donation received:', {
     sessionId: session.id,
-    amount: session.amount_total,
+    amount: amountInCurrency,
     currency: session.currency,
     projectId,
+    appealId,
     projectName,
     donationType,
     customerEmail: session.customer_details?.email,
   });
 
-  // TODO: In production:
-  // - Update project raised amount if projectId exists
-  // - Send thank you email to donor
-  // - Log to donation history
+  // Update appeal raised amount
+  if (appealId) {
+    try {
+      await prisma.appeal.update({
+        where: { id: appealId },
+        data: { raisedAmount: { increment: amountInCurrency } },
+      });
+      console.log(`Updated appeal ${appealId}: +£${amountInCurrency}`);
+    } catch (error) {
+      console.error('Failed to update appeal raised amount:', error);
+    }
+  }
+
+  // Update project raised amount
+  if (projectId) {
+    try {
+      await prisma.project.update({
+        where: { id: projectId },
+        data: { raisedAmount: { increment: amountInCurrency } },
+      });
+      console.log(`Updated project ${projectId}: +£${amountInCurrency}`);
+    } catch (error) {
+      console.error('Failed to update project raised amount:', error);
+    }
+  }
 }
 
 export async function handleSubscriptionCreated(

@@ -49,6 +49,7 @@ const DEFAULT_AMOUNTS = {
 export interface DonationFormProps {
   config?: Partial<DonationConfig>;
   projectId?: string;
+  appealId?: string;
   projectName?: string;
   initialCurrency?: Currency;
   className?: string;
@@ -58,6 +59,7 @@ export interface DonationFormProps {
 export default function DonationForm({
   config,
   projectId,
+  appealId,
   projectName,
   initialCurrency = 'gbp',
   className,
@@ -120,6 +122,7 @@ export default function DonationForm({
           currency,
           donationType,
           projectId,
+          appealId,
           projectName,
           successUrl: `${window.location.origin}/donate/success`,
           cancelUrl: `${window.location.origin}/donate/cancelled`,

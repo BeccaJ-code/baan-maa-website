@@ -209,7 +209,7 @@ export default async function AppealPage({ params }: Props) {
                       </div>
                     )}
 
-                    <Link href={`/donate?appeal=${appeal.slug}`}>
+                    <Link href={`/donate?appealId=${appeal.id}&appealName=${encodeURIComponent(appeal.title)}`}>
                       <Button
                         fullWidth
                         size="lg"
@@ -278,7 +278,7 @@ export default async function AppealPage({ params }: Props) {
             Whether you can give £5 or £500, your donation helps us save more dogs like {appeal.dogName || 'those in need'}.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={`/donate?appeal=${appeal.slug}`}>
+            <Link href={`/donate?appealId=${appeal.id}&appealName=${encodeURIComponent(appeal.title)}`}>
               <Button size="lg">Donate to This Appeal</Button>
             </Link>
             <Link href="/donate">

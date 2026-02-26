@@ -222,6 +222,7 @@ export interface CheckoutRequest {
   currency: Currency;
   donationType: 'once' | 'monthly';
   projectId?: string;
+  appealId?: string;
   projectName?: string;
   successUrl: string;
   cancelUrl: string;
