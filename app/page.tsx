@@ -7,33 +7,28 @@ import StoryCarousel, { type StoryData } from '@/components/StoryCarousel';
 import { UrgentAppealsSection } from '@/components/UrgentAppeal';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import prisma from '@/lib/prisma';
-import { parseJSON } from '@/lib/utils';
 
 // =============================================================================
 // Homepage
 // =============================================================================
 
 export default async function HomePage() {
-  // Fetch featured dogs with stories
-  const dogs = await prisma.dog.findMany({
-    where: {
-      status: { in: ['AVAILABLE', 'SPONSORED', 'ADOPTED'] },
-      rescueStory: { not: null },
-    },
+  // Fetch published stories for the carousel
+  const successStories = await prisma.successStory.findMany({
+    where: { isPublished: true },
     take: 5,
     orderBy: { createdAt: 'desc' },
   });
 
   // Transform to story data
-  const stories: StoryData[] = dogs
-    .filter(dog => dog.rescueStory)
-    .map(dog => ({
-      id: dog.id,
-      name: dog.name,
-      images: parseJSON<string[]>(dog.images, [dog.featuredImage || '/images/placeholder-dog.jpg']),
-      beforeStory: dog.rescueStory || '',
-      afterStory: dog.fullDescription || 'Today, they are safe and loved at Baan Maa.',
-    }));
+  const stories: StoryData[] = successStories.map(story => ({
+    id: story.id,
+    slug: story.slug,
+    name: story.dogName,
+    images: [story.beforeImage, story.afterImage].filter(Boolean) as string[],
+    beforeStory: story.summary || '',
+    afterStory: '',
+  }));
 
   return (
     <>
@@ -42,7 +37,7 @@ export default async function HomePage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-sanctuary.jpg"
+            src="/images/hero-homepage.webp"
             alt="Dogs at Baan Maa sanctuary"
             fill
             className="object-cover"
@@ -119,17 +114,17 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             <FeatureCard
-              image="/images/features/rescue.jpg"
+              image="/images/features/rescue-card.webp"
               title="Rescue"
               description="Every day, our small team responds to calls for help from dogs in distress. From busy roads to temple grounds, we bring them to safety and give them their first real chance at care and comfort."
             />
             <FeatureCard
-              image="/images/features/medical.jpg"
+              image="/images/features/medical-card.webp"
               title="Medical"
               description="At Baan Maa, every dog receives the treatment they need to heal: vaccinations, sterilisation, surgery, or just the patience to recover from trauma. Our trusted local vets work closely with us to make sure no dog is left to suffer."
             />
             <FeatureCard
-              image="/images/features/adoption.jpg"
+              image="/images/features/adoption.webp"
               title="Adoption"
               description="When our dogs are healthy, confident, and ready for the next chapter, we help them find homes both in Thailand and overseas. From Phetchaburi to Scotland, our adopters become part of the Baan Maa family."
             />
@@ -155,8 +150,8 @@ export default async function HomePage() {
       {/* CTA Section */}
       <section className="relative min-h-[50vh] flex items-center justify-center py-20 px-6">
         <Image
-          src="/images/cta-dogs-playing.jpg"
-          alt="Happy dogs at the sanctuary"
+          src="/images/jake-recovery.webp"
+          alt="Jake recovering at Baan Maa sanctuary"
           fill
           className="object-cover"
         />

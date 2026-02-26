@@ -144,20 +144,7 @@ export default function ContactPage() {
         </Container>
       </Section>
 
-      {/* Map */}
-      <Section background="white" padding="none">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15530.0!2d99.89!3d12.96!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30fdae0c0a7b4e3d%3A0x0!2sTha%20Yang%2C%20Phetchaburi%2C%20Thailand!5e0!3m2!1sen!2s!4v1700000000000"
-          width="100%"
-          height="400"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Baan Maa Dog Rescue location in Tha Yang, Phetchaburi, Thailand"
-          className="w-full h-[400px]"
-        />
-      </Section>
+
     </>
   );
 }

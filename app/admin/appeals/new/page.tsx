@@ -3,11 +3,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 export default function NewAppealPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [content, setContent] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ export default function NewAppealPage() {
       title: formData.get('title') as string,
       dogName: formData.get('dogName') as string || null,
       summary: formData.get('summary') as string,
-      content: formData.get('content') as string || null,
+      content: content || null,
       goalAmount: parseFloat(goalStr),
       raisedAmount: raisedStr ? parseFloat(raisedStr) : 0,
       featuredImage: formData.get('featuredImage') as string || null,
@@ -115,11 +117,11 @@ export default function NewAppealPage() {
               Featured Image URL
             </label>
             <input
-              type="url"
+              type="text"
               id="featuredImage"
               name="featuredImage"
               className="w-full px-4 py-2 rounded-lg border border-sand-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none"
-              placeholder="https://example.com/image.jpg"
+              placeholder="/images/appeals/example.jpg"
             />
           </div>
 
@@ -140,22 +142,16 @@ export default function NewAppealPage() {
 
           {/* Content */}
           <div className="md:col-span-2">
-            <label htmlFor="content" className="block text-sm font-medium text-sand-700 mb-2">
+            <label className="block text-sm font-medium text-sand-700 mb-2">
               Full Details
             </label>
-            <textarea
-              id="content"
-              name="content"
-              rows={6}
-              className="w-full px-4 py-2 rounded-lg border border-sand-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none resize-none"
-              placeholder="Full story and details about this appeal"
-            />
+            <RichTextEditor content="" onChange={setContent} />
           </div>
 
           {/* Goal Amount */}
           <div>
             <label htmlFor="goalAmount" className="block text-sm font-medium text-sand-700 mb-2">
-              Goal Amount (£) *
+              Goal Amount (&pound;) *
             </label>
             <input
               type="number"
@@ -172,7 +168,7 @@ export default function NewAppealPage() {
           {/* Raised Amount */}
           <div>
             <label htmlFor="raisedAmount" className="block text-sm font-medium text-sand-700 mb-2">
-              Raised Amount (£)
+              Raised Amount (&pound;)
             </label>
             <input
               type="number"

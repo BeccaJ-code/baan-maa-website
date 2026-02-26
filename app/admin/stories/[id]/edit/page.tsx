@@ -228,11 +228,12 @@ export default function EditStoryPage({ params }: { params: Promise<{ id: string
               Before Image URL
             </label>
             <input
-              type="url"
+              type="text"
               id="beforeImage"
               name="beforeImage"
               defaultValue={story.beforeImage || ''}
               className="w-full px-4 py-2 rounded-lg border border-sand-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none"
+              placeholder="/images/stories/dog-before.jpg"
             />
           </div>
 
@@ -242,11 +243,12 @@ export default function EditStoryPage({ params }: { params: Promise<{ id: string
               After Image URL
             </label>
             <input
-              type="url"
+              type="text"
               id="afterImage"
               name="afterImage"
               defaultValue={story.afterImage || ''}
               className="w-full px-4 py-2 rounded-lg border border-sand-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none"
+              placeholder="/images/stories/dog-after.jpg"
             />
           </div>
 

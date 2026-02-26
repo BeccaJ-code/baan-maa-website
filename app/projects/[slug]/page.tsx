@@ -99,13 +99,14 @@ export default async function ProjectPage({ params }: PageProps) {
                   <h2 className="font-display text-xl font-bold text-blue-900 mb-4">
                     About This Project
                   </h2>
-                  <div className="prose prose-sand max-w-none">
-                    {project.description.split('\n\n').map((paragraph, i) => (
-                      <p key={i} className="text-sand-700 leading-relaxed mb-4">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
+                  <div
+                    className="prose prose-sand max-w-none text-sand-700"
+                    dangerouslySetInnerHTML={{
+                      __html: project.description.startsWith('<')
+                        ? project.description
+                        : project.description.split('\n\n').map(p => `<p>${p}</p>`).join('')
+                    }}
+                  />
                 </div>
               )}
             </div>

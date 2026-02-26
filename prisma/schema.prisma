@@ -1,0 +1,239 @@
+// =============================================================================
+// BAAN MAA DOG RESCUE - Database Schema
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// User Management
+// =============================================================================
+// Role values: ADMIN, EDITOR, DOG_MANAGER
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  role         String   @default("DOG_MANAGER")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+// =============================================================================
+// Dog Profiles
+// =============================================================================
+// Status values: AVAILABLE, ADOPTED, SPONSORED, FOSTERED, MEDICAL, DECEASED
+// Size values: SMALL, MEDIUM, LARGE
+// Sex values: MALE, FEMALE
+
+model Dog {
+  id               String   @id @default(cuid())
+  name             String
+  slug             String   @unique
+  status           String   @default("AVAILABLE")
+
+  // Basic info
+  age              String?   // e.g., "2 years", "6 months", "Senior"
+  sex              String?
+  size             String?
+  breed            String?   // e.g., "Mixed breed", "Thai Ridgeback mix"
+
+  // Description
+  shortDescription String?   // One-liner for cards
+  fullDescription  String?   // Full bio for profile page
+  rescueStory      String?   // How they came to Baan Maa
+
+  // Compatibility (for filtering)
+  goodWithKids     Boolean   @default(false)
+  goodWithDogs     Boolean   @default(false)
+  goodWithCats     Boolean   @default(false)
+  houseTrained     Boolean   @default(false)
+
+  // Traits (stored as JSON array of strings)
+  traits           String?   // JSON: ["Playful", "Gentle", "Energetic"]
+
+  // Images (stored as JSON array of URLs)
+  images           String?   // JSON: ["/images/dogs/luna-1.jpg", ...]
+  featuredImage    String?   // Primary image for cards
+
+  // Sponsorship
+  sponsorshipGoal  Float?    // Monthly sponsorship goal
+  sponsorshipTotal Float     @default(0)
+
+  // Dates
+  intakeDate       DateTime?
+  adoptedDate      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@map("dogs")
+}
+
+// =============================================================================
+// Events
+// =============================================================================
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?
+
+  // Event details
+  date        DateTime
+  endDate     DateTime?
+  location    String?
+  isOnline    Boolean  @default(false)
+
+  // Display
+  featuredImage String?
+  isPublished   Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("events")
+}
+
+// =============================================================================
+// Donation Projects
+// =============================================================================
+
+model Project {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  description   String?
+
+  // Funding
+  goalAmount    Float?
+  raisedAmount  Float    @default(0)
+
+  // Display
+  featuredImage String?
+  isActive      Boolean  @default(true)
+  isPriority    Boolean  @default(false)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("projects")
+}
+
+// =============================================================================
+// Optional: Content Blocks (for CMS-like flexibility)
+// =============================================================================
+
+model ContentBlock {
+  id        String   @id @default(cuid())
+  key       String   @unique // e.g., "homepage-hero", "about-mission"
+  title     String?
+  content   String?  // Rich text / markdown
+  metadata  String?  // JSON for additional data
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("content_blocks")
+}
+
+// =============================================================================
+// Success Stories
+// =============================================================================
+
+model SuccessStory {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  dogName       String
+  title         String   // e.g., "From Street to Sofa: Luna's Journey"
+
+  // Story content
+  summary       String?  // Short summary for cards
+  content       String   // Full story (markdown)
+
+  // Images
+  beforeImage   String?  // Before rescue photo
+  afterImage    String?  // Happy ending photo
+  galleryImages String?  // JSON array of additional images
+
+  // Adoption details
+  adoptedTo     String?  // "The Smith Family in Sweden"
+  adoptedDate   DateTime?
+  location      String?  // Where they went (country/city)
+
+  // Display
+  isFeatured    Boolean  @default(false)
+  isPublished   Boolean  @default(false)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("success_stories")
+}
+
+// =============================================================================
+// Urgent Appeals
+// =============================================================================
+
+model Appeal {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String   // e.g., "Help save Buddy - Emergency surgery needed"
+  dogName       String?
+
+  // Appeal content
+  summary       String   // Short urgent message
+  content       String?  // Full story/details
+
+  // Funding
+  goalAmount    Float
+  raisedAmount  Float    @default(0)
+
+  // Images
+  featuredImage String?
+
+  // Status
+  isActive      Boolean  @default(true)
+  isUrgent      Boolean  @default(true)  // Show in urgent banner
+  priority      Int      @default(0)     // Higher = more prominent
+
+  // Dates
+  deadline      DateTime?  // Optional deadline for urgency
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("appeals")
+}
+
+// =============================================================================
+// Newsletter Subscribers
+// =============================================================================
+
+model Subscriber {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+
+  // Preferences
+  isActive      Boolean  @default(true)
+  source        String?  // Where they signed up: "footer", "popup", "donation"
+
+  // Tracking
+  confirmedAt   DateTime?  // Email confirmation timestamp
+  unsubscribedAt DateTime?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("subscribers")
+}

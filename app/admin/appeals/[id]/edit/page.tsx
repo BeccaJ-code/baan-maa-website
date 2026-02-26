@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 interface Appeal {
   id: string;
@@ -28,6 +29,7 @@ export default function EditAppealPage({ params }: { params: Promise<{ id: strin
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState('');
+  const [content, setContent] = useState('');
 
   useEffect(() => {
     const fetchAppeal = async () => {
@@ -36,6 +38,7 @@ export default function EditAppealPage({ params }: { params: Promise<{ id: strin
         const data = await res.json();
         if (data.success) {
           setAppeal(data.data);
+          setContent(data.data.content || '');
         } else {
           setError('Appeal not found');
         }
@@ -61,7 +64,7 @@ export default function EditAppealPage({ params }: { params: Promise<{ id: strin
       title: formData.get('title') as string,
       dogName: formData.get('dogName') as string || null,
       summary: formData.get('summary') as string,
-      content: formData.get('content') as string || null,
+      content: content || null,
       goalAmount: parseFloat(goalStr),
       raisedAmount: raisedStr ? parseFloat(raisedStr) : 0,
       featuredImage: formData.get('featuredImage') as string || null,
@@ -200,7 +203,7 @@ export default function EditAppealPage({ params }: { params: Promise<{ id: strin
               Featured Image URL
             </label>
             <input
-              type="url"
+              type="text"
               id="featuredImage"
               name="featuredImage"
               defaultValue={appeal.featuredImage || ''}
@@ -225,16 +228,10 @@ export default function EditAppealPage({ params }: { params: Promise<{ id: strin
 
           {/* Content */}
           <div className="md:col-span-2">
-            <label htmlFor="content" className="block text-sm font-medium text-sand-700 mb-2">
+            <label className="block text-sm font-medium text-sand-700 mb-2">
               Full Details
             </label>
-            <textarea
-              id="content"
-              name="content"
-              rows={6}
-              defaultValue={appeal.content || ''}
-              className="w-full px-4 py-2 rounded-lg border border-sand-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none resize-none"
-            />
+            <RichTextEditor content={appeal.content || ''} onChange={setContent} />
           </div>
 
           {/* Goal Amount */}

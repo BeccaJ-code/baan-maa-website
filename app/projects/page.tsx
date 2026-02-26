@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Container, Section } from '@/components/layout';
 import { Button } from '@/components/ui';
@@ -82,11 +83,22 @@ export default async function ProjectsPage() {
   );
 }
 
-function ProjectCard({ project }: { project: { title: string; slug: string; description: string | null; goalAmount: number | null; raisedAmount: number; isPriority: boolean } }) {
+function ProjectCard({ project }: { project: { title: string; slug: string; description: string | null; featuredImage: string | null; goalAmount: number | null; raisedAmount: number; isPriority: boolean } }) {
   const progress = project.goalAmount ? (project.raisedAmount / project.goalAmount) * 100 : 0;
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-md">
+    <div className="bg-white rounded-xl overflow-hidden shadow-md">
+      {project.featuredImage && (
+        <div className="relative aspect-[16/9]">
+          <Image
+            src={project.featuredImage}
+            alt={project.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
+      <div className="p-6">
       {project.isPriority && (
         <span className="inline-block px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded mb-3">
           Priority
@@ -94,7 +106,9 @@ function ProjectCard({ project }: { project: { title: string; slug: string; desc
       )}
       <h3 className="font-semibold text-xl text-blue-800 mb-2">{project.title}</h3>
       {project.description && (
-        <p className="text-sand-700 mb-4">{project.description}</p>
+        <p className="text-sand-700 mb-4 line-clamp-3">
+          {project.description.replace(/<[^>]*>/g, '')}
+        </p>
       )}
 
       {project.goalAmount && (
@@ -128,6 +142,7 @@ function ProjectCard({ project }: { project: { title: string; slug: string; desc
             Donate
           </Button>
         </Link>
+      </div>
       </div>
     </div>
   );

@@ -9,9 +9,9 @@ export default async function AdminLayout({
 }) {
   const user = await getCurrentUser();
 
-  // Redirect to login if not authenticated
+  // If not authenticated, render children without sidebar (for login page)
   if (!user) {
-    redirect('/admin/login');
+    return <>{children}</>;
   }
 
   const navigation = [
