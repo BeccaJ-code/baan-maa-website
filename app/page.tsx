@@ -14,22 +14,41 @@ import { cn } from '@/lib/utils';
 // =============================================================================
 
 export default async function HomePage() {
-  // Fetch upcoming published events
-  const upcomingEvents = await prisma.event.findMany({
-    where: {
-      isPublished: true,
-      date: { gte: new Date() },
-    },
-    orderBy: { date: 'asc' },
-    take: 3,
-  });
+  // Fetch upcoming published events (gracefully handle missing table)
+  let upcomingEvents: Array<{
+    id: string;
+    title: string;
+    description: string | null;
+    date: Date;
+    endDate: Date | null;
+    location: string | null;
+    isOnline: boolean;
+    featuredImage: string | null;
+  }> = [];
+  try {
+    upcomingEvents = await prisma.event.findMany({
+      where: {
+        isPublished: true,
+        date: { gte: new Date() },
+      },
+      orderBy: { date: 'asc' },
+      take: 3,
+    });
+  } catch {
+    // Events table may not exist in production yet
+  }
 
   // Fetch published stories for the carousel
-  const successStories = await prisma.successStory.findMany({
-    where: { isPublished: true },
-    take: 5,
-    orderBy: { createdAt: 'desc' },
-  });
+  let successStories: Awaited<ReturnType<typeof prisma.successStory.findMany>> = [];
+  try {
+    successStories = await prisma.successStory.findMany({
+      where: { isPublished: true },
+      take: 5,
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch {
+    // Gracefully handle missing table
+  }
 
   // Transform to story data
   const stories: StoryData[] = successStories.map(story => ({
