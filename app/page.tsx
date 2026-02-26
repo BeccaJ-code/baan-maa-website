@@ -7,12 +7,23 @@ import StoryCarousel, { type StoryData } from '@/components/StoryCarousel';
 import { UrgentAppealsSection } from '@/components/UrgentAppeal';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import prisma from '@/lib/prisma';
+import { cn } from '@/lib/utils';
 
 // =============================================================================
 // Homepage
 // =============================================================================
 
 export default async function HomePage() {
+  // Fetch upcoming published events
+  const upcomingEvents = await prisma.event.findMany({
+    where: {
+      isPublished: true,
+      date: { gte: new Date() },
+    },
+    orderBy: { date: 'asc' },
+    take: 3,
+  });
+
   // Fetch published stories for the carousel
   const successStories = await prisma.successStory.findMany({
     where: { isPublished: true },
@@ -104,6 +115,80 @@ export default async function HomePage() {
           </div>
         </Container>
       </Section>
+
+      {/* Featured Events */}
+      {upcomingEvents.length > 0 && (
+        <Section background="sand" padding="md">
+          <Container size="lg">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 text-center mb-8">
+              Upcoming Events
+            </h2>
+            <div className={cn(
+              'grid gap-6',
+              upcomingEvents.length === 1
+                ? 'grid-cols-1 max-w-lg mx-auto'
+                : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            )}>
+              {upcomingEvents.map(event => {
+                const eventDate = new Date(event.date);
+                const month = eventDate.toLocaleDateString('en-GB', { month: 'short' }).toUpperCase();
+                const day = eventDate.getDate();
+                const timeStr = eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                const endDateStr = event.endDate
+                  ? ` – ${new Date(event.endDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`
+                  : '';
+
+                return (
+                  <div
+                    key={event.id}
+                    className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                  >
+                    {event.featuredImage && (
+                      <div className="relative aspect-[2/1]">
+                        <Image
+                          src={event.featuredImage}
+                          alt={event.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="p-5 flex gap-4">
+                      {/* Date badge */}
+                      <div className="shrink-0 w-14 h-14 bg-teal-50 rounded-lg flex flex-col items-center justify-center border border-teal-200">
+                        <span className="text-xs font-bold text-teal-700 leading-none">{month}</span>
+                        <span className="text-xl font-bold text-teal-800 leading-tight">{day}</span>
+                      </div>
+                      {/* Details */}
+                      <div className="min-w-0">
+                        <h3 className="font-display font-bold text-lg text-blue-800 mb-1 truncate">
+                          {event.title}
+                        </h3>
+                        <p className="text-sand-600 text-sm flex items-center gap-1.5 mb-1">
+                          <CalendarSmallIcon />
+                          {eventDate.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}
+                          {endDateStr} · {timeStr}
+                        </p>
+                        {(event.location || event.isOnline) && (
+                          <p className="text-sand-600 text-sm flex items-center gap-1.5">
+                            <LocationSmallIcon />
+                            {event.isOnline ? 'Online Event' : event.location}
+                          </p>
+                        )}
+                        {event.description && (
+                          <p className="text-sand-700 text-sm mt-2 line-clamp-2">
+                            {event.description.replace(/<[^>]*>/g, '')}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Container>
+        </Section>
+      )}
 
       {/* What We Do Section */}
       <Section background="blue" padding="md">
@@ -234,5 +319,26 @@ export default async function HomePage() {
         </Container>
       </Section>
     </>
+  );
+}
+
+// =============================================================================
+// Small Icons for Event Cards
+// =============================================================================
+
+function CalendarSmallIcon() {
+  return (
+    <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+  );
+}
+
+function LocationSmallIcon() {
+  return (
+    <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
   );
 }
