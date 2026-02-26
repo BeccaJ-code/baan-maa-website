@@ -49,20 +49,7 @@ export default function ContactPage() {
               </h2>
 
               <div className="space-y-6">
-                {/* Address */}
-                <ContactItem
-                  icon={<LocationIcon />}
-                  title="Visit Us"
-                  content={
-                    <>
-                      59/3 Moo 9 Tambon Thalaeng<br />
-                      Tha Yang, Phetchaburi 76130<br />
-                      Thailand
-                    </>
-                  }
-                />
-
-                {/* Email */}
+{/* Email */}
                 <ContactItem
                   icon={<EmailIcon />}
                   title="Email"

@@ -18,7 +18,7 @@ export default function RescuePage() {
             About Our Rescue
           </h1>
           <p className="text-lg text-white/90">
-            We are the only dog rescue operating in Tha Yang, Phetchaburi, Thailand.
+            We are the only dog rescue operating in this region of Thailand.
             Every day, we work to save lives and give street dogs a second chance.
           </p>
         </Container>

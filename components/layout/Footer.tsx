@@ -112,9 +112,6 @@ export default function Footer() {
             <p className="text-white/50 text-sm">
               &copy; {new Date().getFullYear()} Baan Maa Dog Rescue. All rights reserved.
             </p>
-            <p className="text-white/50 text-sm">
-              59/3 Moo 9, Tambon Thalaeng, Tha Yang, Phetchaburi 76130, Thailand
-            </p>
           </div>
         </div>
       </Container>
