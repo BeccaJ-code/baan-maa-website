@@ -17,6 +17,7 @@ export default async function HomePage() {
   // Fetch upcoming published events (gracefully handle missing table)
   let upcomingEvents: Array<{
     id: string;
+    slug: string;
     title: string;
     description: string | null;
     date: Date;
@@ -158,9 +159,10 @@ export default async function HomePage() {
                   : '';
 
                 return (
-                  <div
+                  <Link
                     key={event.id}
-                    className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                    href={`/events/${event.slug}`}
+                    className="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow group"
                   >
                     {event.featuredImage && (
                       <div className="relative aspect-[2/1]">
@@ -180,7 +182,7 @@ export default async function HomePage() {
                       </div>
                       {/* Details */}
                       <div className="min-w-0">
-                        <h3 className="font-display font-bold text-lg text-blue-800 mb-1 truncate">
+                        <h3 className="font-display font-bold text-lg text-blue-800 mb-1 truncate group-hover:text-teal-600 transition-colors">
                           {event.title}
                         </h3>
                         <p className="text-sand-600 text-sm flex items-center gap-1.5 mb-1">
@@ -201,7 +203,7 @@ export default async function HomePage() {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
