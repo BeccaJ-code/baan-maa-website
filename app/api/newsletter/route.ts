@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import prisma from '@/lib/prisma';
+import { sendSubscriberNotification } from '@/lib/email';
 
 const subscribeSchema = z.object({
   email: z.string().email(),
@@ -47,8 +48,12 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // TODO: Send confirmation email
-    // await sendConfirmationEmail(data.email);
+    // Notify admin of new subscriber
+    try {
+      await sendSubscriberNotification(data.email.toLowerCase(), data.source);
+    } catch (emailError) {
+      console.error('Failed to send subscriber notification email:', emailError);
+    }
 
     return NextResponse.json({
       success: true,

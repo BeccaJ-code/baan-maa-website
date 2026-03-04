@@ -280,19 +280,19 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
             <div>
               <div className="font-display text-3xl md:text-5xl font-bold text-teal-600 mb-1 md:mb-2">
-                500+
+                75+
               </div>
               <div className="text-sand-600 text-sm md:text-base">Dogs Rescued</div>
             </div>
             <div>
               <div className="font-display text-3xl md:text-5xl font-bold text-teal-600 mb-1 md:mb-2">
-                200+
+                15+
               </div>
               <div className="text-sand-600 text-sm md:text-base">Adoptions</div>
             </div>
             <div>
               <div className="font-display text-3xl md:text-5xl font-bold text-teal-600 mb-1 md:mb-2">
-                50+
+                24+
               </div>
               <div className="text-sand-600 text-sm md:text-base">Dogs in Care</div>
             </div>

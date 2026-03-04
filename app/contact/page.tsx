@@ -70,7 +70,7 @@ export default function ContactPage() {
                   content={
                     <div className="flex gap-4 mt-2">
                       <a
-                        href="https://facebook.com/baanmaa"
+                        href="https://www.facebook.com/BaanMaaTheDogHouse"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 hover:bg-blue-200 transition-colors"
@@ -79,7 +79,7 @@ export default function ContactPage() {
                         <FacebookIcon />
                       </a>
                       <a
-                        href="https://instagram.com/baanmaa"
+                        href="https://www.instagram.com/BaanMaaDogHouse"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 hover:bg-blue-200 transition-colors"
@@ -88,7 +88,7 @@ export default function ContactPage() {
                         <InstagramIcon />
                       </a>
                       <a
-                        href="https://youtube.com/baanmaa"
+                        href="https://www.youtube.com/@BaanMaaTheDogHouse2"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 hover:bg-blue-200 transition-colors"

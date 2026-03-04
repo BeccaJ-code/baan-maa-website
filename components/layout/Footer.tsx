@@ -30,9 +30,9 @@ const FOOTER_LINKS = {
 };
 
 const SOCIAL_LINKS = [
-  { href: 'https://facebook.com/baanmaa', label: 'Facebook', icon: FacebookIcon },
-  { href: 'https://instagram.com/baanmaa', label: 'Instagram', icon: InstagramIcon },
-  { href: 'https://youtube.com/baanmaa', label: 'YouTube', icon: YouTubeIcon },
+  { href: 'https://www.facebook.com/BaanMaaTheDogHouse', label: 'Facebook', icon: FacebookIcon },
+  { href: 'https://www.instagram.com/BaanMaaDogHouse', label: 'Instagram', icon: InstagramIcon },
+  { href: 'https://www.youtube.com/@BaanMaaTheDogHouse2', label: 'YouTube', icon: YouTubeIcon },
 ];
 
 export default function Footer() {

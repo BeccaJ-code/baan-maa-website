@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
@@ -23,9 +23,26 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Store data from each step so it persists when steps are hidden from the DOM
+  const savedDataRef = useRef<Record<string, string>>({});
+  const [savedData, setSavedData] = useState<Record<string, string>>({});
+
+  const captureCurrentStep = (form: HTMLFormElement) => {
+    const formData = new FormData(form);
+    const entries: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      entries[key] = value as string;
+    });
+    const merged = { ...savedDataRef.current, ...entries };
+    savedDataRef.current = merged;
+    setSavedData(merged);
+    return merged;
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const allData = captureCurrentStep(e.currentTarget);
 
     if (step < 3) {
       setStep(step + 1);
@@ -35,35 +52,33 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
     setIsSubmitting(true);
     setError(null);
 
-    const formData = new FormData(e.currentTarget);
-
     const data = {
       dogId,
       dogName,
-      name: formData.get('name'),
-      email: formData.get('email'),
-      phone: formData.get('phone'),
-      country: formData.get('country'),
-      city: formData.get('city'),
-      homeType: formData.get('homeType'),
-      hasGarden: formData.get('hasGarden') === 'yes',
-      gardenFenced: formData.get('gardenFenced') === 'yes',
-      rentOrOwn: formData.get('rentOrOwn'),
-      landlordApproval: formData.get('landlordApproval') === 'yes',
-      adultsInHome: parseInt(formData.get('adultsInHome') as string) || 1,
-      childrenInHome: parseInt(formData.get('childrenInHome') as string) || 0,
-      childrenAges: formData.get('childrenAges'),
-      allAgree: formData.get('allAgree') === 'yes',
-      currentPets: formData.get('currentPets'),
-      previousDogs: formData.get('previousDogs') === 'yes',
-      vetName: formData.get('vetName'),
-      vetPhone: formData.get('vetPhone'),
-      workSchedule: formData.get('workSchedule'),
-      hoursAlone: parseInt(formData.get('hoursAlone') as string) || 0,
-      exercisePlan: formData.get('exercisePlan'),
-      whyAdopt: formData.get('whyAdopt'),
-      additionalInfo: formData.get('additionalInfo'),
-      honeypot: formData.get('website'),
+      name: allData.name || '',
+      email: allData.email || '',
+      phone: allData.phone || '',
+      country: allData.country || '',
+      city: allData.city || '',
+      homeType: allData.homeType || 'house',
+      hasGarden: allData.hasGarden === 'yes',
+      gardenFenced: allData.gardenFenced === 'yes',
+      rentOrOwn: allData.rentOrOwn || 'own',
+      landlordApproval: allData.landlordApproval === 'yes',
+      adultsInHome: parseInt(allData.adultsInHome) || 1,
+      childrenInHome: parseInt(allData.childrenInHome) || 0,
+      childrenAges: allData.childrenAges || '',
+      allAgree: allData.allAgree === 'yes',
+      currentPets: allData.currentPets || 'None',
+      previousDogs: allData.previousDogs === 'yes',
+      vetName: allData.vetName || '',
+      vetPhone: allData.vetPhone || '',
+      workSchedule: allData.workSchedule || '',
+      hoursAlone: parseInt(allData.hoursAlone) || 0,
+      exercisePlan: allData.exercisePlan || '',
+      whyAdopt: allData.whyAdopt || '',
+      additionalInfo: allData.additionalInfo || '',
+      honeypot: allData.website || '',
     };
 
     try {
@@ -126,11 +141,11 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Input name="name" label="Full Name" required />
-            <Input name="email" type="email" label="Email" required />
-            <Input name="phone" type="tel" label="Phone Number" required />
-            <Input name="country" label="Country" required />
-            <Input name="city" label="City" required />
+            <Input name="name" label="Full Name" defaultValue={savedData.name} required />
+            <Input name="email" type="email" label="Email" defaultValue={savedData.email} required />
+            <Input name="phone" type="tel" label="Phone Number" defaultValue={savedData.phone} required />
+            <Input name="country" label="Country" defaultValue={savedData.country} required />
+            <Input name="city" label="City" defaultValue={savedData.city} required />
           </div>
         </div>
       )}
@@ -145,6 +160,7 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
           <Select
             name="homeType"
             label="Type of Home"
+            defaultValue={savedData.homeType}
             options={[
               { value: 'house', label: 'House' },
               { value: 'apartment', label: 'Apartment/Flat' },
@@ -158,6 +174,7 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
             <Select
               name="hasGarden"
               label="Do you have a garden/yard?"
+              defaultValue={savedData.hasGarden}
               options={[
                 { value: 'yes', label: 'Yes' },
                 { value: 'no', label: 'No' },
@@ -167,6 +184,7 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
             <Select
               name="gardenFenced"
               label="Is it securely fenced?"
+              defaultValue={savedData.gardenFenced}
               options={[
                 { value: 'yes', label: 'Yes' },
                 { value: 'no', label: 'No' },
@@ -180,6 +198,7 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
             <Select
               name="rentOrOwn"
               label="Do you rent or own?"
+              defaultValue={savedData.rentOrOwn}
               options={[
                 { value: 'own', label: 'Own' },
                 { value: 'rent', label: 'Rent' },
@@ -189,6 +208,7 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
             <Select
               name="landlordApproval"
               label="Landlord approval for pets?"
+              defaultValue={savedData.landlordApproval}
               options={[
                 { value: 'yes', label: 'Yes' },
                 { value: 'no', label: 'No' },
@@ -199,15 +219,16 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Input name="adultsInHome" type="number" label="Adults in household" min={1} required />
-            <Input name="childrenInHome" type="number" label="Children in household" min={0} required />
+            <Input name="adultsInHome" type="number" label="Adults in household" defaultValue={savedData.adultsInHome} min={1} required />
+            <Input name="childrenInHome" type="number" label="Children in household" defaultValue={savedData.childrenInHome} min={0} required />
           </div>
 
-          <Input name="childrenAges" label="Ages of children (if any)" />
+          <Input name="childrenAges" label="Ages of children (if any)" defaultValue={savedData.childrenAges} />
 
           <Select
             name="allAgree"
             label="Does everyone in the household agree to the adoption?"
+            defaultValue={savedData.allAgree}
             options={[
               { value: 'yes', label: 'Yes' },
               { value: 'no', label: 'No' },
@@ -228,12 +249,14 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
             name="currentPets"
             label="Current pets (type, age, how long owned)"
             placeholder="e.g., 1 cat (5 years old, had since kitten)"
+            defaultValue={savedData.currentPets}
             rows={3}
           />
 
           <Select
             name="previousDogs"
             label="Have you owned dogs before?"
+            defaultValue={savedData.previousDogs}
             options={[
               { value: 'yes', label: 'Yes' },
               { value: 'no', label: 'No' },
@@ -242,16 +265,17 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Input name="vetName" label="Vet name (for reference)" />
-            <Input name="vetPhone" label="Vet phone number" />
+            <Input name="vetName" label="Vet name (for reference)" defaultValue={savedData.vetName} />
+            <Input name="vetPhone" label="Vet phone number" defaultValue={savedData.vetPhone} />
           </div>
 
-          <Input name="workSchedule" label="Your typical work schedule" required />
+          <Input name="workSchedule" label="Your typical work schedule" defaultValue={savedData.workSchedule} required />
 
           <Input
             name="hoursAlone"
             type="number"
             label="Hours dog would be alone per day"
+            defaultValue={savedData.hoursAlone}
             min={0}
             max={24}
             required
@@ -260,6 +284,7 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
           <Textarea
             name="exercisePlan"
             label="How will you exercise the dog?"
+            defaultValue={savedData.exercisePlan}
             rows={3}
             required
           />
@@ -267,6 +292,7 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
           <Textarea
             name="whyAdopt"
             label={`Why do you want to adopt ${dogName}?`}
+            defaultValue={savedData.whyAdopt}
             rows={4}
             required
           />
@@ -274,6 +300,7 @@ export default function AdoptionForm({ dogId, dogName, className }: AdoptionForm
           <Textarea
             name="additionalInfo"
             label="Anything else you'd like us to know?"
+            defaultValue={savedData.additionalInfo}
             rows={3}
           />
         </div>

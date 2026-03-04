@@ -60,7 +60,8 @@ export default function Header() {
         'sticky top-0 z-50 transition-all duration-300',
         isScrolled
           ? 'bg-white shadow-md'
-          : 'bg-white/95 backdrop-blur-sm'
+          : 'bg-white/95',
+        !isMobileMenuOpen && !isScrolled && 'backdrop-blur-sm'
       )}
     >
       <nav className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
@@ -118,8 +119,8 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[4.5rem] bg-white z-40 overflow-y-auto">
-          <nav className="flex flex-col p-6 gap-4">
+        <div className="lg:hidden border-t border-sand-200 bg-white">
+          <nav className="flex flex-col p-6 gap-4 max-w-[90rem] mx-auto">
             {NAV_LINKS.map(link => (
               <Link
                 key={link.href}

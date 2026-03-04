@@ -106,10 +106,10 @@ export default function RescuePage() {
             Our Impact
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
-            <Stat number="500+" label="Dogs Rescued" />
-            <Stat number="200+" label="Successful Adoptions" />
+            <Stat number="75+" label="Dogs Rescued" />
+            <Stat number="15+" label="Successful Adoptions" />
             <Stat number="1,000+" label="Dogs Sterilised" />
-            <Stat number="50+" label="Dogs Currently in Care" />
+            <Stat number="24+" label="Dogs Currently in Care" />
           </div>
         </Container>
       </Section>

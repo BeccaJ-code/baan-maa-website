@@ -66,14 +66,6 @@ export default async function DonatePage({ searchParams }: PageProps) {
                   monthlyAvailable: true,
                   defaultType: 'once',
                   allowCustomAmount: true,
-                  presetAmounts: [
-                    { amount: 25, label: 'Feeds 5 dogs' },
-                    { amount: 50, label: 'Medical care' },
-                    { amount: 100, label: 'Emergency surgery' },
-                    { amount: 250, label: 'Full rehabilitation' },
-                    { amount: 500, label: 'Save multiple dogs' },
-                    { amount: 1000, label: 'Sponsor our shelter' },
-                  ],
                 }}
               />
             </div>
@@ -112,11 +104,11 @@ export default async function DonatePage({ searchParams }: PageProps) {
               </div>
 
               <div className="mt-8 p-6 bg-white rounded-xl">
-                <h3 className="font-semibold text-blue-800 mb-2">100% Goes to the Dogs</h3>
+                <h3 className="font-semibold text-blue-800 mb-2">Your Donation Makes a Difference</h3>
                 <p className="text-sand-700 text-sm">
-                  We are a volunteer-run organisation. Every penny you donate goes directly
-                  to dog care, medical treatment, and rescue operations. We maintain full
-                  financial transparency and publish regular updates on how funds are used.
+                  Your donations go directly towards dog care, medical treatment, and rescue
+                  operations. We keep overheads low and maintain full financial transparency,
+                  publishing regular updates on how funds are used.
                 </p>
               </div>
             </div>

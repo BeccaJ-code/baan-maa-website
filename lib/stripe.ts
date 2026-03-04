@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import prisma from '@/lib/prisma';
+import { sendDonationNotification } from '@/lib/email';
 import type { Currency, CheckoutRequest } from '@/types';
 
 // =============================================================================
@@ -181,6 +182,20 @@ export async function handleCheckoutCompleted(
     } catch (error) {
       console.error('Failed to update project raised amount:', error);
     }
+  }
+
+  // Send email notification
+  try {
+    await sendDonationNotification({
+      amount: amountInCurrency,
+      currency: session.currency || 'gbp',
+      donationType: donationType || 'once',
+      projectName: projectName || undefined,
+      appealId: appealId || undefined,
+      customerEmail: session.customer_details?.email || undefined,
+    });
+  } catch (error) {
+    console.error('Failed to send donation notification email:', error);
   }
 }
 

@@ -67,8 +67,8 @@ export default async function ProjectsPage() {
             100% Transparency
           </h2>
           <p className="text-white/80 mb-6">
-            We publish regular updates on how funds are used. Every penny goes
-            directly to dog care - we are entirely volunteer-run.
+            We publish regular updates on how funds are used. We keep overheads
+            low so your donations go directly to dog care.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="inline-block">
@@ -132,15 +132,17 @@ function ProjectCard({ project }: { project: { title: string; slug: string; desc
       )}
 
       <div className="flex gap-3">
-        <Link href={`/projects/${project.slug}`} className="flex-1">
-          <Button variant="outline" fullWidth>
-            Learn More
-          </Button>
+        <Link
+          href={`/projects/${project.slug}`}
+          className="flex-1 inline-flex items-center justify-center gap-2 font-semibold rounded-lg py-3.5 px-7 text-base min-h-[48px] bg-transparent text-teal-700 border-2 border-teal-700 hover:bg-teal-50 hover:-translate-y-0.5 transition-all duration-200 ease-out"
+        >
+          Learn More
         </Link>
-        <Link href={`/donate?project=${project.slug}`} className="flex-1">
-          <Button fullWidth>
-            Donate
-          </Button>
+        <Link
+          href={`/donate?project=${project.slug}`}
+          className="flex-1 inline-flex items-center justify-center gap-2 font-semibold rounded-lg py-3.5 px-7 text-base min-h-[48px] bg-teal-600 text-white hover:bg-teal-700 hover:shadow-teal hover:-translate-y-0.5 transition-all duration-200 ease-out"
+        >
+          Donate
         </Link>
       </div>
       </div>

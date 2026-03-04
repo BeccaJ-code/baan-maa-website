@@ -33,7 +33,7 @@ export default function VolunteeringPage() {
               <div className="space-y-6">
                 <VolunteerType
                   title="On-Site in Thailand"
-                  description="Join us at the sanctuary! Help with daily care, feeding, walking, socialisation, and more. Minimum stay of 2 weeks recommended."
+                  description="Join us at the sanctuary! Help with daily care, feeding, walking, socialisation, and more. Local volunteers are welcome for the day, and longer stays are always appreciated."
                   items={['Dog walking & exercise', 'Feeding & cleaning', 'Socialisation', 'Medical assistance']}
                 />
 

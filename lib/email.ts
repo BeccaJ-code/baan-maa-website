@@ -279,6 +279,107 @@ export async function sendVolunteerEmail(data: VolunteerFormData): Promise<void>
 }
 
 // =============================================================================
+// Donation / Sponsorship Notification
+// =============================================================================
+
+export interface DonationNotificationData {
+  amount: number;
+  currency: string;
+  donationType: 'once' | 'monthly' | string;
+  projectName?: string;
+  appealId?: string;
+  customerEmail?: string;
+}
+
+export async function sendDonationNotification(data: DonationNotificationData): Promise<void> {
+  const formatter = new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: data.currency.toUpperCase(),
+  });
+  const formattedAmount = formatter.format(data.amount);
+  const isMonthly = data.donationType === 'monthly';
+  const isSponsorship = data.projectName?.toLowerCase().startsWith('sponsorship');
+
+  let typeLabel = 'One-time Donation';
+  if (isSponsorship) {
+    typeLabel = 'Monthly Sponsorship';
+  } else if (isMonthly) {
+    typeLabel = 'Monthly Donation';
+  }
+
+  const subject = isSponsorship
+    ? `[Sponsorship] ${formattedAmount}/month - ${data.projectName}`
+    : `[Donation] ${formattedAmount}${isMonthly ? '/month' : ''} received`;
+
+  const content = `
+    <h2>New ${typeLabel} Received!</h2>
+    <div class="field">
+      <div class="label">Amount</div>
+      <div class="value" style="font-size: 24px; font-weight: bold; color: #0d9488;">${formattedAmount}${isMonthly ? ' / month' : ''}</div>
+    </div>
+    <div class="field">
+      <div class="label">Type</div>
+      <div class="value">${typeLabel}</div>
+    </div>
+    ${data.projectName ? `
+    <div class="field">
+      <div class="label">Allocated To</div>
+      <div class="value">${escapeHtml(data.projectName)}</div>
+    </div>
+    ` : `
+    <div class="field">
+      <div class="label">Allocated To</div>
+      <div class="value">General Fund</div>
+    </div>
+    `}
+    ${data.customerEmail ? `
+    <div class="field">
+      <div class="label">Donor Email</div>
+      <div class="value"><a href="mailto:${escapeHtml(data.customerEmail)}">${escapeHtml(data.customerEmail)}</a></div>
+    </div>
+    ` : ''}
+  `;
+
+  await transporter.sendMail({
+    from: FROM_ADDRESS,
+    to: CONTACT_EMAIL,
+    subject,
+    html: wrapInTemplate(content, typeLabel),
+    text: `${typeLabel}: ${formattedAmount}${isMonthly ? '/month' : ''}\nAllocated to: ${data.projectName || 'General Fund'}\nDonor: ${data.customerEmail || 'Unknown'}`,
+  });
+}
+
+// =============================================================================
+// Newsletter Subscriber Notification
+// =============================================================================
+
+export async function sendSubscriberNotification(email: string, source?: string): Promise<void> {
+  const content = `
+    <h2>New Newsletter Subscriber</h2>
+    <div class="field">
+      <div class="label">Email</div>
+      <div class="value"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
+    </div>
+    <div class="field">
+      <div class="label">Source</div>
+      <div class="value">${escapeHtml(source || 'website')}</div>
+    </div>
+    <div class="field">
+      <div class="label">Date</div>
+      <div class="value">${new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' })}</div>
+    </div>
+  `;
+
+  await transporter.sendMail({
+    from: FROM_ADDRESS,
+    to: 'beccaj@baanmaa.org',
+    subject: `[Newsletter] New subscriber: ${email}`,
+    html: wrapInTemplate(content, 'New Subscriber'),
+    text: `New newsletter subscriber: ${email}\nSource: ${source || 'website'}\nDate: ${new Date().toLocaleString('en-GB')}`,
+  });
+}
+
+// =============================================================================
 // Utilities
 // =============================================================================
 

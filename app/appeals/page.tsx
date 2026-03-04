@@ -5,6 +5,8 @@ import { Button } from '@/components/ui';
 import prisma from '@/lib/prisma';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Urgent Appeals',
   description: 'Dogs in critical need of your help. Your donation can save a life today.',
